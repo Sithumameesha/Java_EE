@@ -19,7 +19,8 @@ public class customer extends HttpServlet {
         String address = req.getParameter("cusAddress");
         System.out.println(name);
         PrintWriter printWriter = resp.getWriter();
-        printWriter.write("<table><tr><th>Name</th></tr><tr>"+name+"</tr><tr><th>CustomerId</th></tr><tr>"+id+"<tr/><tr>"+address+"<tr/><table/>");
+        printWriter.write(
+                "<table><thead><tr><th>Customer Id</th><th>Customer Name</th><th>Address</th><tbody></tr></thead><tr><td>" +id+ "</td><td>" + name + "</td><td>" + address + "</td></tr></tbody></table> <style> body{ width: 97.5vw; height: 97.5vh; display: flex; flex-direction: column;} h1{font-size: 4em; color: crimson;} table{border-collapse: collapse;} table,tr,th,td{border: 1px solid black;} thead,tbody{padding: 10px;font-size: 20px;} thead{background: blue; color: white} th,td{width: 200px; height: 30px}</style>");
 
     }
 }
