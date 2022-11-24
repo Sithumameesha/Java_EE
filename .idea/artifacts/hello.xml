@@ -10,6 +10,7 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="application_server_libraries" name="Tomcat 8.5.83" />
+          <element id="library" level="project" name="mysql-connector-java-8.0.21" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="01_Hello_JavaEE/web/Web" />

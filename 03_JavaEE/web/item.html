@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Item Form</title>
+    <link rel="stylesheet" href="./assects/boostrap_lib/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light shadow-lg posNavi position-relative rounded-bottom">
+        <div class="container-fluid">
+            <a class="navbar-brand text-dark fw-bold " >
+                <img alt="Logo" class="d-inline-block align-text-center" height="44" src="./assects/img/pngwing.com%20(42).png"
+                     width="50">
+                <span class="text-success"> Welocome </span>  System
+            </a>
+            <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-bs-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link active" href="customer.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer.html">Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="item.html">Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="orders.html">Orders</a>
+                    </li>
+                </ul>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-outline-primary btn-m" type="button"><i class="fa-solid fa-user-plus"></i>
+                        Sign Up
+                    </button>
+                    <button class="btn btn-outline-secondary" type="button"><i
+                            class="fa-solid fa-right-from-bracket"></i> Log Out
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<main class="container-fluid">
+    <div class="container d-flex flex-grow-1 flex-column">
+        <div class="position-relative d-inline-block mt-3 mt-lg-4 mt-md-4">
+            <h2 id="H1-1" style="font-family: 'Arial Rounded MT Bold',serif"><i
+                    class="fa-sharp fa-solid fa-computer"></i> Item
+            </h2>
+        </div>
+    </div>
+    <div class="container d-flex flex-grow-1 flex-column" style="background-color: #dfe4ea">
+        <div class="position-relative d-inline-block mt-3 mt-lg-4 mt-md-4">
+            <h6 id="H6-1"> Item</h6>
+            <hr>
+        </div>
+
+        <div class="row  justify-content-center"  >
+
+            <div class="col-10 col-md-5 col-lg-4.1 p-0 mt-1 m-1 rounded-3" style="background-color: white">
+                <h4 class="text-center  p-2 text-light rounded-3"  style="background-color: blue" >Search Items</h4>
+                <form>
+                    <div class="mb-3 ms-3 me-3 ">
+                        <input class="form-control" id="cusId"
+                               placeholder="Input Id Here"
+                               type="text">
+                    </div>
+                    <button class="btn btn-primary ms-4 mb-3   " type="submit" style="background-color: blue" >Search</button>
+                    <button class="btn btn-danger ms-3 mb-3 ms-md-3 ms-lg-3" type="reset">Clear</button>
+                </form>
+            </div>
+
+        <div class="col-10 col-md-5 col-lg-5 mt-5">
+            <button class="btn btn-success " data-bs-target="#registerCustomer"
+                    data-bs-toggle="modal" id="btnRegister" type="button">+ Add Item
+            </button>
+
+            <button class="btn btn-warning" data-bs-target="#updateCustomer"
+                    data-bs-toggle="modal" type="button">Update Details
+            </button>
+
+
+            <button class="btn btn-danger" data-bs-target="#deleteCustomer"
+                    data-bs-toggle="modal" type="button">Delete Items
+            </button>
+
+        </div>
+
+        </div>
+
+        <div class="row mt-1 mt-md-2 mt-lg-1 justify-content-around" style="height: 250px;">
+            <div class="col-10">
+                <div class="customerTableDiv overflow-auto" style="height: 200px;">
+                    <table class="table table-success table-striped table-bordered table-hover">
+                        <thead class="text-light table-dark text-center  table-bordered sticky-top">
+                        <tr>
+                            <th>Item Code</th>
+                            <th>Item Name</th>
+                            <th>Item Price</th>
+                            <th>Item Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody id="itemsTable">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div saria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="registerCustomer" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #0a53be">
+                    <h5 class="modal-title text-light">New Item</h5>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="ms-3 me-3">
+                            <label class="form-label fw-bold mb-0" for="txtItemId">Item Code :</label>
+                            <input class="form-control" id="txtItemId"
+                                   type="text">
+                        </div>
+                        <div class="ms-3 me-3">
+                            <label class="form-label fw-bold mb-0" for="txtItemName">Item Name :</label>
+                            <input class="form-control" id="txtItemName"
+                                   type="text">
+                        </div>
+                        <div class="ms-3 me-3">
+                            <label class="form-label fw-bold mb-0" for="txtItemPrice">Item Price :</label>
+                            <input class="form-control" id="txtItemPrice"
+                                   type="text">
+                        </div>
+                        <div class="ms-3 me-3">
+                            <label class="form-label fw-bold mb-0" for="txtItemQty">Item Quantity :</label>
+                            <input class="form-control" id="txtItemQty"
+                                   type="number">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-warning" type="reset">Clear</button>
+                    <button class="btn btn-primary" type="button" id="btnItem">Save Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="updateCustomer" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #0a53be">
+                    <h5 class="modal-title text-light">Update Item</h5>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="ms-3 me-3">
+                            <label class="form-label fw-bold mb-0" for="searchCustomerId">Search Item Code :</label>
+                            <input class="form-control" id="searchCustomerId"
+                                   type="text">
+                        </div>
+                        <div class="ms-3 me-3">
+                            <label class="form-label fw-bold mb-0" for="name">Item Name :</label>
+                            <input class="form-control" id="name"
+                                   type="text">
+                        </div>
+                        <div class="ms-3 me-3">
+                            <label class="form-label fw-bold mb-0" for="address">Item Price :</label>
+                            <input class="form-control" id="address"
+                                   type="text">
+                        </div>
+                        <div class="ms-3 me-3">
+                            <label class="form-label fw-bold mb-0" for="salary">Item Quantity :</label>
+                            <input class="form-control" id="salary"
+                                   type="number">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-warning" type="reset">Clear</button>
+                    <button class="btn btn-primary" type="button">Update Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="deleteCustomer" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #0a53be">
+                    <h5 class="modal-title text-light">Delete Item</h5>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="ms-3 me-3">
+                            <label class="form-label fw-bold mb-0" for="searchCId">Search Item Code :</label>
+                            <input class="form-control" id="searchCId"
+                                   type="text">
+                        </div>
+                        <fieldset disabled>
+                            <div class="ms-3 me-3">
+                                <label class="form-label fw-bold mb-0" for="disabledName">Item Name :</label>
+                                <input class="form-control" id="disabledName"
+                                       type="text">
+                            </div>
+                            <div class="ms-3 me-3">
+                                <label class="form-label fw-bold mb-0" for="disabledAddress">Item Price :</label>
+                                <input class="form-control" id="disabledAddress"
+                                       type="text">
+                            </div>
+                            <div class="ms-3 me-3">
+                                <label class="form-label fw-bold mb-0" for="disabledSalary">Item Quantity :</label>
+                                <input class="form-control" id="disabledSalary"
+                                       type="number">
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-warning" type="reset">Clear</button>
+                    <button class="btn btn-primary" type="button">Delete Item</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="assects/js/jQuery%20v3.6.1.js"></script>
+<script>
+    var ItemArray = [];
+    $("#btnItem").click(function (){
+       let itemCode = $("#txtItemId").val();
+        let itemName = $("#txtItemName").val();
+        let itemPrice = $("#txtItemPrice").val();
+        let itemQty = $("#txtItemQty").val();
+
+var ItemObject= {
+    id:itemCode,
+    name:itemName,
+    price:itemPrice,
+    qty:itemQty
+}
+console.log(ItemObject);
+        ItemArray.push(ItemObject);
+for ( var items of ItemArray){
+    console.log(items.id);
+}
+
+        var row = "<tr><td>"+items.id+"</td><td>"+items.name+"</td><td> "+items.price+"</td><td> "+items.qty+" </td></tr>";
+        $("#itemsTable").append(row);
+    });
+
+
+
+</script>
+<script src="./assects/boostrap_lib/js/bootstrap.min.js"></script>
+</body>
+</html>
