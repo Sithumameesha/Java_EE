@@ -198,7 +198,7 @@ for (customerDto customer : allcustomer){
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Doe</button>
                     <button class="btn btn-warning" type="reset">Clear</button>
-                    <button class="btn btn-primary" id="btnCustomer" form="customerForm" formaction="customer" formmethod="post">Save Customer</button>
+                    <button class="btn btn-primary" id="btnCustomer" form="customerForm" formaction="customer?Option=Add" formmethod="post" >Save Customer</button>
                 </div>
             </div>
         </div>

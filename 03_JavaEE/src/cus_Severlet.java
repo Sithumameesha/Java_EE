@@ -14,15 +14,22 @@ import java.sql.SQLException;
 public class cus_Severlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    }
+
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         String name = req.getParameter("name");
         String address = req.getParameter("address");
         String salary = req.getParameter("salary");
-//        System.out.println(id+" "+name+" "+address+" "+salary);
-//        System.out.println("Hello");
+        String option = req.getParameter("Option");
+if (option.equals("Add")){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-           Connection connection= DriverManager.getConnection("jdbc:mysql://localhost:3306/ thogakade","root","1234");
+            Connection connection= DriverManager.getConnection("jdbc:mysql://localhost:3306/ thogakade","root","1234");
             PreparedStatement pstm = connection.prepareStatement("insert into customer values (?,?,?,?)");
             pstm.setObject(1,id);
             pstm.setObject(2,name);
@@ -31,16 +38,12 @@ public class cus_Severlet extends HttpServlet {
             boolean b =pstm.executeUpdate()>0;
             PrintWriter writer = resp.getWriter();
             writer.write("<h1>Customer Added State : "+b+"</h1>");
+            resp.sendRedirect("customer.jsp");
+
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-
     }
-
 }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Done");
-    }
+}
 }
