@@ -1,5 +1,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Dto.customerDto" %>
+<%@ page import="java.sql.DriverManager" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.PreparedStatement" %>
+<%@ page import="java.sql.Connection" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,11 +16,25 @@
 <body>
 <%
     ArrayList<customerDto>allcustomer = new ArrayList<>();
-    allcustomer.add(new customerDto("C001","Sithum","Galle",1000));
-    allcustomer.add(new customerDto("C001","Sithum","Waduraba",2000));
-    allcustomer.add(new customerDto("C001","Sithum","Ahgangama",3000));
-    allcustomer.add(new customerDto("C001","Sithum","Colombo",4000));
-    allcustomer.add(new customerDto("C001","Sithum","Mathra",5000));
+//    allcustomer.add(new customerDto("C001","Sithum","Galle",1000));
+//    allcustomer.add(new customerDto("C001","Sithum","Waduraba",2000));
+//    allcustomer.add(new customerDto("C001","Sithum","Ahgangama",3000));
+//    allcustomer.add(new customerDto("C001","Sithum","Colombo",4000));
+//    allcustomer.add(new customerDto("C001","Sithum","Mathra",5000));
+
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
+    PreparedStatement pstm = connection.prepareStatement("select * from customer");
+    ResultSet rst = pstm.executeQuery();
+    while (rst.next()) {
+        String id = rst.getString("id");
+        String name = rst.getString("name");
+        String address = rst.getString("address");
+        double salary = rst.getDouble("salary");
+        allcustomer.add(new customerDto(id,name,address,salary));
+    }
+
+
 
 %>
 
