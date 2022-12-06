@@ -40,32 +40,18 @@ public class cus_Severlet extends HttpServlet {
             PreparedStatement pstm = connection.prepareStatement("delete from  customer where id=?");
             pstm.setObject(1, id);
             boolean b = pstm.executeUpdate() > 0;
+        }else if (option.equals("update")){
+            PreparedStatement pstm = connection.prepareStatement("update customer set name =?,address=?,salary=?where id=?");
+            pstm.setObject(4, id);
+            pstm.setObject(1, name);
+            pstm.setObject(2, address);
+            pstm.setObject(3, salary);
+            boolean b = pstm.executeUpdate() > 0;
         }
             resp.sendRedirect("customer.jsp");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-//        if (option.equals("remove")) {
-//
-//            try {
-//                Class.forName("com.mysql.jdbc.Driver");
-//                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ thogakade", "root", "1234");
-//                PreparedStatement pstm = connection.prepareStatement("delete from customer where id=?");
-////                pstm.setObject(1, id);
-////                pstm.setObject(2, name);
-////                pstm.setObject(3, address);
-////                pstm.setObject(4, salary);
-//                boolean b = pstm.executeUpdate() > 0;
-//                PrintWriter writer = resp.getWriter();
-//                writer.write("<h1>Customer Added State : " + b + "</h1>");
-//                resp.sendRedirect("customer.jsp");
-//
-//
-//            } catch (ClassNotFoundException | SQLException e) {
-//                e.printStackTrace();
-//
-//
-//            }
-//        }
+
     }
 }
