@@ -16,11 +16,6 @@
 <body>
 <%
     ArrayList<customerDto>allcustomer = new ArrayList<>();
-//    allcustomer.add(new customerDto("C001","Sithum","Galle",1000));
-//    allcustomer.add(new customerDto("C001","Sithum","Waduraba",2000));
-//    allcustomer.add(new customerDto("C001","Sithum","Ahgangama",3000));
-//    allcustomer.add(new customerDto("C001","Sithum","Colombo",4000));
-//    allcustomer.add(new customerDto("C001","Sithum","Mathra",5000));
 
     Class.forName("com.mysql.jdbc.Driver");
     Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
@@ -87,202 +82,67 @@
     </nav>
 </header>
 <main class="container-fluid">
-    <div class="container d-flex flex-grow-1 flex-column">
-        <div class="position-relative d-inline-block mt-3 mt-lg-4 mt-md-4">
-            <h2 id="H1-1" style="font-family: 'Arial Rounded MT Bold',serif"><i class="fa-solid fa-users" ></i> Customer
-            </h2>
-        </div>
-    </div>
-
-    <div class="container d-flex flex-grow-1 flex-column" style="background-color: #dfe4ea">
-        <div class="position-relative d-inline-block mt-3 mt-lg-4 mt-md-4">
-            <h6 id="H6-1" >Customer</h6>
-            <hr>
-        </div>
-
-    <div class="row  justify-content-center"  >
-
-        <div class="col-10 col-md-5 col-lg-4.1 p-0 mt-1 m-1 rounded-3" style="background-color: white">
-            <h4 class="text-center  p-2 text-light rounded-3"  style="background-color: blue" >Search Customer</h4>
-            <form>
-                <div class="mb-3 ms-3 me-3 ">
-                    <input class="form-control" id="cusId"
-                           placeholder="Input Name Here"
-                           type="text">
+    <section class="row">
+        <div class="col-4">
+            <h1>Customer Registraion</h1>
+            <form id="customerForm">
+                <div class="form-group">
+                    <label for="txtCustomerID">Customer ID</label>
+                    <input class="form-control" id="txtCustomerID"  type="text" name="id">
+                    <span class="control-error" id="lblcusid"></span>
                 </div>
-                <button class="btn btn-primary ms-4 mb-3   " type="submit" style="background-color: blue" >Search</button>
-                <button class="btn btn-danger ms-3 mb-3 ms-md-3 ms-lg-3" type="reset">Clear</button>
+                <div class="form-group">
+                    <label for="txtCustomerName">Customer Name</label>
+                    <input class="form-control" id="txtCustomerName" type="text" name="name">
+                    <span class="control-error" id="lblcusname"></span>
+                </div>
+                <div class="form-group">
+                    <label for="txtCustomerAddress">Customer Address</label>
+                    <input class="form-control" id="txtCustomerAddress" type="text" name="address">
+                    <span class="control-error" id="lblcusaddress"></span>
+                </div>
+                <div class="form-group">
+                    <label for="txtCustomerSalary">Customer Salary</label>
+                    <input class="form-control" id="txtCustomerSalary" type="text" name="salary">
+                    <span class="control-error" id="lblcussalary"></span>
+                </div>
             </form>
-        </div>
-
-        <div class="col-10 col-md-5 col-lg-5 mt-5">
-            <button class="btn btn-success " data-bs-target="#registerCustomer"
-                    data-bs-toggle="modal" id="btnRegister" type="button">+ New Customer
-            </button>
-
-            <button class="btn btn-warning" data-bs-target="#updateCustomer"
-                    data-bs-toggle="modal" type="button">Update Customer
-            </button>
-
-            <button class="btn btn-danger mt-2" data-bs-target="#deleteCustomer"
-                    data-bs-toggle="modal" type="button">Delete Customer
-            </button>
-
-        </div>
-    </div>
-        <div class="row mt-1 mt-md-2 mt-lg-1 justify-content-around" style="height: 250px;">
-            <div class="col-10">
-                <div class="customerTableDiv overflow-auto" style="height: 200px;">
-                    <table class="table table-success table-striped table-bordered table-hover">
-                        <thead class="text-light table-dark text-center  table-bordered sticky-top">
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Salary</th>
-                        </tr>
-                        </thead>
-                        <tbody id="customerTable">
-<%
-for (customerDto customer : allcustomer){
-%>
-                        <tr>
-                            <td><%=customer.getId()%></td>
-                            <td><%=customer.getName()%></td>
-                            <td><%=customer.getAddress()%></td>
-                            <td><%=customer.getSalary()%></td>
-                        </tr>
-                        <%
-                            }
-                        %>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="btn-group">
+                <button class="btn btn-primary" id="btnCustomer" form="customerForm" formaction="customer?Option=Add" formmethod="post">Save Customer</button>
+                <button class="btn btn-danger" id="btnCusDelete" form="customerForm" formaction="customer?Option=remove" formmethod="post" >Remove</button>
+                <button class="btn btn-warning" id="btnUpdate">Update</button>
+                <button class="btn btn-success" id="btnGetAll" form="customerForm" formaction="customer.jsp">Get All</button>
+                <button class="btn btn-danger" id="btn-clear1">Clear All</button>
             </div>
-        </div>
-    </div>
-    </div>
 
-    <div saria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="registerCustomer" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #0a53be">
-                    <h5 class="modal-title text-light">New Customer</h5>
-                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="customerForm">
-                        <div class="ms-3 me-3">
-                            <label class="form-label fw-bold mb-0" for="txtCustomerId">ID :</label>
-                            <input class="form-control" id="txtCustomerId"
-                                   type="text" name="id">
-                        </div>
-                        <div class="ms-3 me-3">
-                            <label class="form-label fw-bold mb-0" for="txtCustomerName">Name :</label>
-                            <input class="form-control" id="txtCustomerName"
-                                   type="text" name="name">
-                        </div>
-                        <div class="ms-3 me-3">
-                            <label class="form-label fw-bold mb-0" for="txtCustomerAddress">Address :</label>
-                            <input class="form-control" id="txtCustomerAddress"
-                                   type="text" name="address">
-                        </div>
-                        <div class="ms-3 me-3">
-                            <label class="form-label fw-bold mb-0" for="txtCustomerSalary">Salary :</label>
-                            <input class="form-control" id="txtCustomerSalary"
-                                   type="number" name="salary">
-                        </div>
-                    </form>
-
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Doe</button>
-                    <button class="btn btn-warning" type="reset">Clear</button>
-                    <button class="btn btn-primary" id="btnCustomer" form="customerForm" formaction="customer?Option=Add" formmethod="post" >Save Customer</button>
-                </div>
-            </div>
         </div>
-    </div>
-    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="updateCustomer" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #0a53be">
-                    <h5 class="modal-title text-light">Update Customer</h5>
-                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="ms-3 me-3">
-                            <label class="form-label fw-bold mb-0" for="searchCustomerId">Search ID :</label>
-                            <input class="form-control" id="searchCustomerId"
-                                   type="text">
-                        </div>
-                        <div class="ms-3 me-3">
-                            <label class="form-label fw-bold mb-0" for="Cusname">Name :</label>
-                            <input class="form-control" id="Cusname"
-                                   type="text">
-                        </div>
-                        <div class="ms-3 me-3">
-                            <label class="form-label fw-bold mb-0" for="address">Address :</label>
-                            <input class="form-control" id="address"
-                                   type="text">
-                        </div>
-                        <div class="ms-3 me-3">
-                            <label class="form-label fw-bold mb-0" for="salary">Salary :</label>
-                            <input class="form-control" id="salary"
-                                   type="number">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
-                    <button class="btn btn-warning" type="reset">Clear</button>
-                    <button class="btn btn-primary" type="button" id="btnUpdate">Update Customer</button>
-                </div>
-            </div>
+        <div class="col-8">
+            <table class="table table-bordered table-hover">
+                <thead class="bg-danger text-white">
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Customer Name</th>
+                    <th>Customer Address</th>
+                    <th>Customer Salary</th>
+                </tr>
+                </thead>
+                <tbody id="tblCustomer">
+                <%
+                    for (customerDto customer : allcustomer) {
+                %>
+                <tr>
+                    <td><%=customer.getId()%></td>
+                    <td><%=customer.getName()%></td>
+                    <td><%=customer.getAddress()%></td>
+                    <td><%=customer.getSalary()%></td>
+                </tr>
+                <%
+                    }
+                %>
+                </tbody>
+            </table>
         </div>
-    </div>
-    <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="deleteCustomer" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #0a53be">
-                    <h5 class="modal-title text-light">Delete Customer</h5>
-                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="ms-3 me-3">
-                            <label class="form-label fw-bold mb-0" for="searchCustId">Search ID :</label>
-                            <input class="form-control" id="searchCustId"
-                                   type="text">
-                        </div>
-                        <fieldset disabled>
-                            <div class="ms-3 me-3">
-                                <label class="form-label fw-bold mb-0" for="disabledName">Name :</label>
-                                <input class="form-control" id="disabledName"
-                                       type="text">
-                            </div>
-                            <div class="ms-3 me-3">
-                                <label class="form-label fw-bold mb-0" for="disabledAddress">Address :</label>
-                                <input class="form-control" id="disabledAddress"
-                                       type="text">
-                            </div>
-                            <div class="ms-3 me-3">
-                                <label class="form-label fw-bold mb-0" for="disabledSalary">Salary :</label>
-                                <input class="form-control" id="disabledSalary"
-                                       type="number">
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
-                    <button class="btn btn-warning" type="reset">Clear</button>
-                    <button class="btn btn-primary" type="button" id="BtnDelete">Delete Customer</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
 </main>
 
 <script src="./assects/boostrap_lib/js/bootstrap.min.js"></script>
