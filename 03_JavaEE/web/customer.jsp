@@ -15,21 +15,9 @@
 </head>
 <body>
 <%
-    ArrayList<customerDto>allcustomer = new ArrayList<>();
 
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
-    PreparedStatement pstm = connection.prepareStatement("select * from customer");
-    ResultSet rst = pstm.executeQuery();
-    while (rst.next()) {
-        String id = rst.getString("id");
-        String name = rst.getString("name");
-        String address = rst.getString("address");
-        double salary = rst.getDouble("salary");
-        allcustomer.add(new customerDto(id,name,address,salary));
-    }
-
-
+//    ArrayList<customerDto>allcustomer = new ArrayList<>();
+    ArrayList<customerDto>allcustomer =(ArrayList<customerDto>) request.getAttribute("customers");
 
 %>
 
@@ -107,12 +95,12 @@
                     <span class="control-error" id="lblcussalary"></span>
                 </div>
             </form>
-            <div class="btn-group">
+            <div class="btn-group" style="margin: 20px ">
                 <button class="btn btn-primary" id="btnCustomer" form="customerForm" formaction="customer?Option=Add" formmethod="post">Save Customer</button>
                 <button class="btn btn-danger" id="btnCusDelete" form="customerForm" formaction="customer?Option=remove" formmethod="post" >Remove</button>
                 <button class="btn btn-warning" id="btnUpdate" form="customerForm" formaction="customer?Option=update"  formmethod="post" >Update</button>
-                <button class="btn btn-success" id="btnGetAll" form="customerForm" formaction="customer.jsp">Get All</button>
-                <button class="btn btn-danger" id="btn-clear1">Clear All</button>
+                <button class="btn btn-success" id="btnGetAll" form="customerForm" formaction="customer">Get All</button>
+<%--                <button class="btn btn-danger" id="btn-clear1">Clear All</button>--%>
             </div>
 
         </div>
@@ -128,6 +116,7 @@
                 </thead>
                 <tbody id="tblCustomer">
                 <%
+                    if (allcustomer!=null){
                     for (customerDto customer : allcustomer) {
                 %>
                 <tr>
@@ -137,6 +126,7 @@
                     <td><%=customer.getSalary()%></td>
                 </tr>
                 <%
+                        }
                     }
                 %>
                 </tbody>
@@ -148,20 +138,18 @@
 <script src="./assects/boostrap_lib/js/bootstrap.min.js"></script>
 <script src="./assects/js/jQuery%20v3.6.1.js"></script>
 <script>
-    function bindRowClickEvents() {
-        $("#tblCustomer>tr").click(function () {
-            let id = $(this).children(":eq(0)").text();
-            let name = $(this).children(":eq(1)").text();
-            let address = $(this).children(":eq(2)").text();
-            let salary = $(this).children(":eq(3)").text();
-            // console.log(id, name, address, salary);
-            //setting table details values to text fields
-            $('#txtCustomerID').val(id);
-            $('#txtCustomerName').val(name);
-            $('#txtCustomerAddress').val(address);
-            $('#txtCustomerSalary').val(salary);
-        });
-    }
+    $("#tblCustomer>tr").click(function () {
+        let id = $(this).children(":eq(0)").text();
+        let name = $(this).children(":eq(1)").text();
+        let address = $(this).children(":eq(2)").text();
+        let salary = $(this).children(":eq(3)").text();
+
+        $('#txtCustomerID').val(id);
+        $('#txtCustomerName').val(name);
+        $('#txtCustomerAddress').val(address);
+        $('#txtCustomerSalary').val(salary);
+    });
+
     bindRowClickEvents();
 </script>
 </body>
