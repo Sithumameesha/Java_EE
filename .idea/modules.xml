@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/01_Hello_JavaEE.iml" filepath="$PROJECT_DIR$/01_Hello_JavaEE.iml" />
       <module fileurl="file://$PROJECT_DIR$/03_JavaEE/03_JavaEE.iml" filepath="$PROJECT_DIR$/03_JavaEE/03_JavaEE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AJAX/AJAX.iml" filepath="$PROJECT_DIR$/AJAX/AJAX.iml" />
       <module fileurl="file://$PROJECT_DIR$/Mapping_Specification/Mapping_Specification.iml" filepath="$PROJECT_DIR$/Mapping_Specification/Mapping_Specification.iml" />
       <module fileurl="file://$PROJECT_DIR$/tomcat_learning.iml" filepath="$PROJECT_DIR$/tomcat_learning.iml" />
     </modules>
