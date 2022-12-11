@@ -74,7 +74,7 @@
             </div>
 </form>
             <div class="btn-group">
-                <button class="btn btn-primary" id="btnItem" form="itemFrom" formaction="./Db/db.txt">Add Item</button>
+                <button class="btn btn-primary"  type="button" id="btnItem" form="itemFrom" formaction="./Db/db.txt">Add Item</button>
                 <button class="btn btn-danger" id="btnItemDelete">Remove</button>
                 <button class="btn btn-warning" id="btnItemUpdate">Update</button>
                 <button class="btn btn-success">Get All</button>
@@ -101,33 +101,16 @@
 
 </main>
 <script src="assects/js/jQuery%20v3.6.1.js"></script>
-<!--<script>-->
-<!--    var ItemArray = [];-->
-<!--    $("#btnItem").click(function (){-->
-<!--       let itemCode = $("#txtItemId").val();-->
-<!--        let itemName = $("#txtItemName").val();-->
-<!--        let itemPrice = $("#txtItemPrice").val();-->
-<!--        let itemQty = $("#txtItemQty").val();-->
+<script>
+    $("#btnItem").click(function (){
+        var http = new XMLHttpRequest();
+        http.open("get","Db/db.txt");
+        http.send();
+        http.responseText;
+        console.log(http.responseText);
 
-<!--var ItemObject= {-->
-<!--    id:itemCode,-->
-<!--    name:itemName,-->
-<!--    price:itemPrice,-->
-<!--    qty:itemQty-->
-<!--}-->
-<!--console.log(ItemObject);-->
-<!--        ItemArray.push(ItemObject);-->
-<!--for ( var items of ItemArray){-->
-<!--    console.log(items.id);-->
-<!--}-->
-
-<!--        var row = "<tr><td>"+items.id+"</td><td>"+items.name+"</td><td> "+items.price+"</td><td> "+items.qty+" </td></tr>";-->
-<!--        $("#itemsTable").append(row);-->
-<!--    });-->
-
-
-
-<!--</script>-->
+    });
+</script>
 <script src="./assects/boostrap_lib/js/bootstrap.min.js"></script>
 </body>
 </html>
