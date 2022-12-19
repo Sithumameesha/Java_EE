@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Item Form</title>
+    <title >Item Form</title>
     <link rel="stylesheet" href="./assects/boostrap_lib/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -50,7 +50,7 @@
 <main class="container-fluid" id="itemContent">
     <section class="row">
         <div class="col-4">
-            <h1>Item Form</h1>
+            <h1 id="display">Item Form</h1>
 <form id="itemFrom">
             <div class="form-group">
                 <label for="itemCode">Item Code</label>
@@ -77,7 +77,7 @@
                 <button class="btn btn-primary"  type="button" id="btnItem" form="itemFrom" formaction="./Db/db.txt">Add Item</button>
                 <button class="btn btn-danger" id="btnItemDelete">Remove</button>
                 <button class="btn btn-warning" id="btnItemUpdate">Update</button>
-                <button class="btn btn-success">Get All</button>
+                <button class="btn btn-success" id="btnGetAll">Get All</button>
                 <button class="btn btn-danger" id="btn-clear">Clear All</button>
             </div>
 
@@ -103,12 +103,43 @@
 <script src="assects/js/jQuery%20v3.6.1.js"></script>
 <script>
     $("#btnItem").click(function (){
-        var http = new XMLHttpRequest();
-        http.open("get","Db/db.txt");
-        http.send();
-        http.responseText;
-        console.log(http.responseText);
+        // var http = new XMLHttpRequest();
+        // http.open("get","Db/db.txt",false);
+        // http.send();
+        // console.log("Response :"+http.responseText);
+        let hhtps = new XMLHttpRequest();
+        hhtps.open("get","Db/db.txt");
+        hhtps.send();
+        hhtps.onreadystatechange = function (){
+            if (hhtps.readyState==4 && hhtps.status==200){
+                console.log("Response",hhtps.responseText)
+                $("#display").text(hhtps.responseText);
+            }
+        }
 
+    });
+    $("#btnGetAll").click(function (){
+        $("#tblItem").empty();
+        $.ajax({
+            url:'Db/db.xml',
+            success:function (res){
+                $("#tblItem").empty();
+                let itemCount=$(res).children().children().length;
+                for (var i=0;i<itemCount;i++) {
+                    let item= $(res).children().children().eq(i);
+                    let code= item.children(":eq(0)").text();
+                    let name= item.children(":eq(1)").text();
+                    let qty= item.children(":eq(2)").text();
+                    let unitPrice= item.children(":eq(3)").text();
+
+                    var row=`<tr><td>${code}</td><td>${name}</td><td>${qty}</td><td>${unitPrice}</td></tr>`;
+                    $("#tblItem").append(row);
+                }
+
+
+
+            }
+        });
     });
 </script>
 <script src="./assects/boostrap_lib/js/bootstrap.min.js"></script>
