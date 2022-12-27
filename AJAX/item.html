@@ -121,20 +121,16 @@
     $("#btnGetAll").click(function (){
         $("#tblItem").empty();
         $.ajax({
-            url:'Db/db.xml',
+            url:'Db/db.json',
             success:function (res){
                 $("#tblItem").empty();
-                let itemCount=$(res).children().children().length;
-                for (var i=0;i<itemCount;i++) {
-                    let item= $(res).children().children().eq(i);
-                    let code= item.children(":eq(0)").text();
-                    let name= item.children(":eq(1)").text();
-                    let qty= item.children(":eq(2)").text();
-                    let unitPrice= item.children(":eq(3)").text();
-
-                    var row=`<tr><td>${code}</td><td>${name}</td><td>${qty}</td><td>${unitPrice}</td></tr>`;
+                for (let re of res) {
+                    console.log(res);
+                    var row=`<tr><td>${re.code}</td><td>${re.name}</td><td>${re.qty}</td><td>${re.unitPrice}</td></tr>`;
                     $("#tblItem").append(row);
                 }
+
+
 
 
 

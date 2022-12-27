@@ -1,0 +1,17 @@
+[  {"code": "I002",
+  "name": "Signal",
+  "qty" : 100,
+  "unitPrice": 450
+  },
+  {
+    "code": "I002",
+    "name": "Saban",
+    "qty" : 100,
+    "unitPrice": 450
+  },
+  {"code": "I002",
+    "name": "Shampoo",
+    "qty" : 100,
+    "unitPrice": 450
+  }
+]
