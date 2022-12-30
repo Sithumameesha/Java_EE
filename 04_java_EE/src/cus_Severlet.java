@@ -14,23 +14,30 @@ import java.util.ArrayList;
 public class cus_Severlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ArrayList<customerDto>allcustomer = new ArrayList<>();
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
             PreparedStatement pstm = connection.prepareStatement("select * from customer");
             ResultSet rst = pstm.executeQuery();
+            String jsonArray="[";
             while (rst.next()) {
                 String id = rst.getString("id");
                 String name = rst.getString("name");
                 String address = rst.getString("address");
                 double salary = rst.getDouble("salary");
-                allcustomer.add(new customerDto(id,name,address,salary));
+                jsonArray+="{\"id\":\""+id+"\",\"name\":\""+name+"\",\"address\":\""+address+"\",\"salary\":"+salary+"},";
             }
-            //resp.sendRedirect("customer.jsp");
-            req.setAttribute("customers",allcustomer);
-            req.getRequestDispatcher("customer.jsp").forward(req,resp);
+            String finalArray = jsonArray.substring(0, jsonArray.length() - 1);
+            finalArray+="]";
+
+            resp.addHeader("Content-Type","application/json");
+            resp.addHeader("myHeader","ijse");
+            resp.getWriter().write(finalArray);
+
+//            resp.sendRedirect("customer.jsp");
+//            req.setAttribute("customers",allcustomer);
+//            req.getRequestDispatcher("customer.jsp").forward(req,resp);
 
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -71,7 +78,7 @@ public class cus_Severlet extends HttpServlet {
             pstm.setObject(3, salary);
             boolean b = pstm.executeUpdate() > 0;
         }
-            resp.sendRedirect("customer");
+
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

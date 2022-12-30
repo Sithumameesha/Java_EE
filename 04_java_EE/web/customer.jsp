@@ -96,10 +96,10 @@
                 </div>
             </form>
             <div class="btn-group" style="margin: 20px ">
-                <button class="btn btn-primary" id="btnCustomer" form="customerForm" formaction="customer?Option=Add" formmethod="post">Save Customer</button>
-                <button class="btn btn-danger" id="btnCusDelete" form="customerForm" formaction="customer?Option=remove" formmethod="post" >Remove</button>
-                <button class="btn btn-warning" id="btnUpdate" form="customerForm" formaction="customer?Option=update"  formmethod="post" >Update</button>
-                <button class="btn btn-success" id="btnGetAll" form="customerForm" formaction="customer">Get All</button>
+                <button class="btn btn-primary" type="button" id="btnCustomer">Save Customer</button>
+                <button class="btn btn-danger" id="btnCusDelete"  >Remove</button>
+                <button class="btn btn-warning" id="btnUpdate"   >Update</button>
+                <button class="btn btn-success" id="btnGetAll" type="button" >Get All</button>
 <%--                <button class="btn btn-danger" id="btn-clear1">Clear All</button>--%>
             </div>
 
@@ -138,19 +138,83 @@
 <script src="./assects/boostrap_lib/js/bootstrap.min.js"></script>
 <script src="./assects/js/jQuery%20v3.6.1.js"></script>
 <script>
-    $("#tblCustomer>tr").click(function () {
-        let id = $(this).children(":eq(0)").text();
-        let name = $(this).children(":eq(1)").text();
-        let address = $(this).children(":eq(2)").text();
-        let salary = $(this).children(":eq(3)").text();
+    function bindrawEvent() {
+        $("#tblCustomer>tr").click(function () {
+            let id = $(this).children(":eq(0)").text();
+            let name = $(this).children(":eq(1)").text();
+            let address = $(this).children(":eq(2)").text();
+            let salary = $(this).children(":eq(3)").text();
 
-        $('#txtCustomerID').val(id);
-        $('#txtCustomerName').val(name);
-        $('#txtCustomerAddress').val(address);
-        $('#txtCustomerSalary').val(salary);
+
+            $('#txtCustomerID').val(id);
+            $('#txtCustomerName').val(name);
+            $('#txtCustomerAddress').val(address);
+            $('#txtCustomerSalary').val(salary);
+        });
+    }
+
+
+</script>
+<script>
+    GetAllCustomer();
+    $("#btnCustomer").click(function (){
+        let formdata = $("#customerForm").serialize();
+         $.ajax({
+         url:"customer?Option=Add",
+            method:"post",
+         data:formdata,
+          success:function (res){
+              GetAllCustomer();
+            }
+        });
+        console.log("Hello");
     });
 
-    bindRowClickEvents();
+    $("#btnCusDelete").click(function (){
+        let formdata = $("#customerForm").serialize();
+        $.ajax({
+            url:"customer?Option=remove",
+            method:"post",
+            data:formdata,
+            success:function (res){
+              GetAllCustomer();
+
+            }
+        });
+        console.log("Hello");
+    });
+    $("#btnUpdate").click(function (){
+        let formdata = $("#customerForm").serialize();
+        $.ajax({
+            url:"customer?Option=update",
+            method:"post",
+            data:formdata,
+            success:function (res){
+                GetAllCustomer();
+            }
+        });
+        console.log("Hello");
+    });
+    $("#btnGetAll").click(function (){
+GetAllCustomer();
+    });
+function GetAllCustomer(){
+    $("#tblCustomer").empty();
+    $.ajax({
+        url:"customer",
+        success:function (res){
+            for (let c of res) {
+                var cusId = c.id;
+                let cusName = c.name;
+                let cusAddress = c.address;
+                let cusSalary =c.salary;
+                let row = "<tr><td>"+cusId+"</td><td>"+cusName+"</td><td>"+cusAddress+"</td><td>"+cusSalary+"</td></tr>"
+                $("#tblCustomer").append(row);
+            }
+            bindrawEvent();
+        }
+    });
+}
 </script>
 </body>
 </html>
