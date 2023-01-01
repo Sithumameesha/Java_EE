@@ -1,5 +1,8 @@
 import Dto.customerDto;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,20 +23,27 @@ public class cus_Severlet extends HttpServlet {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thogakade", "root", "1234");
             PreparedStatement pstm = connection.prepareStatement("select * from customer");
             ResultSet rst = pstm.executeQuery();
-            String jsonArray="[";
+//            String jsonArray="[";
+            JsonArrayBuilder AllCustomer = Json.createArrayBuilder();
             while (rst.next()) {
-                String id = rst.getString("id");
-                String name = rst.getString("name");
-                String address = rst.getString("address");
-                double salary = rst.getDouble("salary");
-                jsonArray+="{\"id\":\""+id+"\",\"name\":\""+name+"\",\"address\":\""+address+"\",\"salary\":"+salary+"},";
+//                String id = rst.getString("id");
+//                String name = rst.getString("name");
+//                String address = rst.getString("address");
+//                double salary = rst.getDouble("salary");
+                JsonObjectBuilder customer = Json.createObjectBuilder();
+                customer.add("id",rst.getString("id"));
+                customer.add("name",rst.getString("name"));
+                customer.add("address",rst.getString("address"));
+                customer.add("salary",rst.getDouble("salary"));
+                 AllCustomer.add(customer.build());
+//                jsonArray+="{\"id\":\""+id+"\",\"name\":\""+name+"\",\"address\":\""+address+"\",\"salary\":"+salary+"},";
             }
-            String finalArray = jsonArray.substring(0, jsonArray.length() - 1);
-            finalArray+="]";
+//            String finalArray = jsonArray.substring(0, jsonArray.length() - 1);
+//            finalArray+="]";
 
             resp.addHeader("Content-Type","application/json");
-            resp.addHeader("myHeader","ijse");
-            resp.getWriter().write(finalArray);
+//            resp.addHeader("myHeader","ijse");
+            resp.getWriter().print(AllCustomer.build());
 
 //            resp.sendRedirect("customer.jsp");
 //            req.setAttribute("customers",allcustomer);
