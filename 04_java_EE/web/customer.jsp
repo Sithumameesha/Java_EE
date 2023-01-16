@@ -160,40 +160,56 @@
     $("#btnCustomer").click(function (){
         let formdata = $("#customerForm").serialize();
          $.ajax({
-         url:"customer?Option=Add",
+         url:"customer",
             method:"post",
          data:formdata,
+             dataType:"json",
           success:function (res){
+              console.log(res);
+              alert(res.message);
               GetAllCustomer();
-            }
+            },
+             error:function (error){
+                 console.log("Error Method Invoked");
+                 console.log(JSON.parse(error.responseText));
+                 alert(JSON.parse(error.responseText).message);
+
+             }
         });
         console.log("Hello");
     });
 
     $("#btnCusDelete").click(function (){
-        let formdata = $("#customerForm").serialize();
+        let id = $("#txtCustomerID").val();
         $.ajax({
-            url:"customer?Option=remove",
-            method:"post",
-            data:formdata,
-            success:function (res){
-              GetAllCustomer();
-
+            url: "customer?id= "+id+"",
+            method: "delete",
+            success: function (resp) {
+                GetAllCustomer();
             }
         });
         console.log("Hello");
     });
     $("#btnUpdate").click(function (){
-        let formdata = $("#customerForm").serialize();
+        let cusId = $("#txtCustomerID").val();
+        let cusName = $("#txtCustomerName").val();
+        let cusAddress = $("#txtCustomerAddress").val();
+        let cusSalary = $("#txtCustomerSalary").val();
+        var customerOb = {
+            id: cusId,
+            name: cusName,
+            address: cusAddress,
+            salary: cusSalary
+        }
         $.ajax({
-            url:"customer?Option=update",
-            method:"post",
-            data:formdata,
-            success:function (res){
+            url: "customer",
+            method: "put",
+            contentType:"application/json",
+            data: JSON.stringify(customerOb),
+            success: function (res) {
                 GetAllCustomer();
             }
         });
-        console.log("Hello");
     });
     $("#btnGetAll").click(function (){
 GetAllCustomer();

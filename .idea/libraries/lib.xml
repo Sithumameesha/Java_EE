@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/04_java_EE/lib/javax.json-1.1.4 (2).jar!/" />
+      <root url="jar://$PROJECT_DIR$/04_java_EE/lib/javax.json-api-1.1.4 (1).jar!/" />
+      <root url="file://$PROJECT_DIR$/04_java_EE/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/04_java_EE/lib" recursive="false" />
+  </library>
+</component>
